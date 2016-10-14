@@ -20,9 +20,14 @@ function ppDate(date) {
         'Apr.', 'May.', 'Jun.',
         'Jul.', 'Aug.', 'Sep.', 
         'Oct.', 'Nov.', 'Dec.'][date.getMonth()] + " " +
-        (function (d) { 
-            var s = d.toString(), l = s[s.length-1];
-            return s+(['st','nd','rd'][l-1] || 'th');
+        (function (d) {
+          if(d>3 && d<21) return d + 'th';
+          switch (d % 10) {
+            case 1:  return d + 'st';
+            case 2:  return d + 'nd';
+            case 3:  return d + 'rd';
+            default: return d + 'th';
+          }
         })(date.getDate()) + ", " +
         date.getFullYear() + " " +
         date.getHours() + ":" + ("0" + date.getMinutes()).slice(-2);
